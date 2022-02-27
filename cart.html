@@ -92,8 +92,11 @@
                 <td>
                   <div class="input-group input-group-sm">
                     <div class="input-group mb-3">
-                      <input 
-                            min="1" type="number" class="form-control" v-model="item.qty">
+                      <!-- <input 
+                            min="1" type="number" class="form-control" v-model.number="item.qty"> -->
+                            <select name="" id="" class="form-select">
+                              <option value="num" v-for="num in 50" :key="`${num} + item.id`" :selected="item.qty === num" >{{ num }}</option>
+                            </select>
                       <span class="input-group-text" id="basic-addon2">{{ item.product.unit }}</span>
                     </div>
                   </div>
