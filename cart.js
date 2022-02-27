@@ -27,12 +27,37 @@ const app = Vue.createApp({
       this.productId = id; // 這裏的 id 對應到 html product-modal 元件裡的 :id = "productId" ，productId 是外層資料定義的
       this.$refs.productModal.openModal(); // 取得 productModal 這個元件結點後使用它裡面的 openModal
     },
+    // 取得購物車列表
     getCart () {
-
+      axios.get(`${url}/api/${path}/cart`)
+      .then (res => {
+        console.log(res);
+        this.cartData = res.data.data; // data 裡有兩層，要存到最後一個 data
+      })
+      .catch ((err) => {
+        alert(err.data.message);
+      })
+    },
+    // 加入購物車
+    addToCart (id, qty = 1) {  // 參數預設值，數量剛加進來就是一個
+      // 根據 api 資料格式建構
+      const data = {
+        product_id: id,
+        qty,
+      }
+      axios.post(`${url}/api/${path}/cart`, { data }) // 這邊要將資料帶出去
+      .then (res => {
+        console.log(res);
+        this.getCart();
+      })
+      .catch ((err) => {
+        alert(err.data.message);
+      })
     },
   },
   mounted () {
     this.getProducts ();
+    this.getCart();
   }
 });
 

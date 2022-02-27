@@ -50,7 +50,7 @@
                     <i class="fas fa-spinner fa-pulse"></i>
                     查看更多
                   </button>
-                  <button type="button" class="btn btn-outline-danger">
+                  <button type="button" class="btn btn-outline-danger" @click="addToCart(product.id)">
                     <i class="fas fa-spinner fa-pulse"></i>
                     加到購物車
                   </button>
@@ -62,6 +62,10 @@
         <!-- 購物車列表 -->
         <div class="text-end">
           <button class="btn btn-outline-danger" type="button">清空購物車</button>
+        </div>
+        <!---->
+        <div>
+          {{cartData}}
         </div>
         <table class="table align-middle">
           <thead>
