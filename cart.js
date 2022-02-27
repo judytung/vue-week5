@@ -30,7 +30,8 @@ const app = Vue.createApp({
         email: '',
         name: '',
         address: '',
-        phone: ''
+        phone: '',
+        textarea: ''
       }
     }
   },
@@ -114,6 +115,8 @@ const app = Vue.createApp({
     onSubmit() {
       // console.log(this.user);
      this.$refs.form.resetForm();
+     this.cartData.carts = '';
+     this.cartData.total = '';
     },
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/
@@ -132,6 +135,8 @@ const app = Vue.createApp({
   }
 });
 
+
+// Modal
 app.component('product-modal', {
   props: ['id'],
   template: '#userProductModal',
