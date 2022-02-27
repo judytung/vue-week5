@@ -39,7 +39,6 @@ const app = Vue.createApp({
     getProducts () {
       axios.get(`${url}/api/${path}/products/all`)
       .then (res => {
-        console.log(res);
         this.products = res.data.products;
       })
       .catch ((err) => {
@@ -54,7 +53,6 @@ const app = Vue.createApp({
     getCart () {
       axios.get(`${url}/api/${path}/cart`)
       .then (res => {
-        console.log(res);
         this.cartData = res.data.data; // data 裡有兩層，要存到最後一個 data
       })
       .catch ((err) => {
