@@ -1,5 +1,22 @@
 const url = 'https://vue3-course-api.hexschool.io/v2'; // 加入站點
 const path = 'judyhexschoolforvue'; // 加入個人 API Path
+// 先宣告所有會用到的工具，解構寫法
+const { defineRule, Form, Field, ErrorMessage, configure } = VeeValidate;
+const { required, email, min, max } = VeeValidateRules;
+const { localize, loadLocaleFromURL } = VeeValidateI18n;
+
+// defineRule 是 VeeValidate 提供的函式，用來定義規則，第一個參數是自行命名的名稱，來自於在 HTML 的 rules 命名的地方，第二個參數是內容來自哪，第二個參數就是來自上方 VeeValidateRules 宣告引入的部分
+defineRule('required', required);  // 必填
+defineRule('email', email);        // email 格式
+defineRule('min', min);            // 最小限制字數
+defineRule('max', max);            // 最大限制字數
+
+// 引入中文
+loadLocaleFromURL('https://unpkg.com/@vee-validate/i18n@4.1.0/dist/locale/zh_TW.json');
+
+configure({ // 用來做一些設定
+  generateMessage: localize('zh_TW'), //啟用 locale 
+});
 
 
 const app = Vue.createApp({
@@ -9,6 +26,12 @@ const app = Vue.createApp({
       products: [],
       productId: '',
       isLoadingItem: '',  // 局部讀取效果的變數，當我們點擊加入到購物車按鈕時，按鈕無法再次點擊
+      user: {
+        email: '',
+        name: '',
+        address: '',
+        phone: ''
+      }
     }
   },
   methods: {
@@ -87,8 +110,22 @@ const app = Vue.createApp({
         alert(err.data.message);
       })
     },
+    // 表單
+    onSubmit() {
+      // console.log(this.user);
+     this.$refs.form.resetForm();
+    },
+    isPhone(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '請輸入正確的電話號碼'
+    },
   },
-  
+  // 區域註冊
+  components: {
+    VForm: Form,
+    VField: Field,
+    ErrorMessage: ErrorMessage,
+  },
   mounted () {
     this.getProducts ();
     this.getCart();

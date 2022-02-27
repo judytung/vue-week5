@@ -122,25 +122,27 @@
         </table>
       </div>
       <div class="my-5 row justify-content-center">
-        <v-form ref="form" class="col-md-6" v-slot="{ errors }" > 
+        <v-form ref="form" class="col-md-6" v-slot="{ errors }" @submit="onSubmit"> 
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <v-field id="email" name="email" type="email" class="form-control"
-                      :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" 
+                      :class="{ 'is-invalid': errors['email'] }"
+                      rules="email|required" 
+                      placeholder="請輸入 Email" 
                     ></v-field>
             <error-message name="email" class="invalid-feedback"></error-message>
           </div>
 
           <div class="mb-3">
             <label for="name" class="form-label">收件人姓名</label>
-            <v-field id="name" name="姓名" type="text" class="form-control" :class="{ 'is-invalid': errors['姓名'] }"
+            <v-field id="name" name="姓名" type="text" class="form-control" :class="{ 'is-invalid': errors['姓名'] }" rules="required"
                       placeholder="請輸入姓名" rules="required"></v-field>
             <error-message name="姓名" class="invalid-feedback"></error-message>
           </div>
 
           <div class="mb-3">
             <label for="tel" class="form-label">收件人電話</label>
-            <v-field id="tel" name="電話" type="text" class="form-control" :class="{ 'is-invalid': errors['電話'] }"
+            <v-field id="tel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" :rules="isPhone"
                       placeholder="請輸入電話" ></v-field>
             <error-message name="電話" class="invalid-feedback"></error-message>
           </div>
