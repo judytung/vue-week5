@@ -47,12 +47,12 @@
               <td>
                 <div class="btn-group btn-group-sm">
                   <button type="button" class="btn btn-outline-secondary" @click="openProductModal(product.id)">
-                    <i class="fas fa-spinner fa-pulse"></i>
                     查看更多
                   </button>
-                  <button type="button" class="btn btn-outline-danger" @click="addToCart(product.id)">
-                    <i class="fas fa-spinner fa-pulse"></i>
+                  <!-- 當 isLoadingItem 跟 product.id 一致時會套用 disabled 狀態，等 ajax 執行完就會恢復 -->
+                  <button type="button" class="btn btn-outline-danger" @click="addToCart(product.id)" :disabled="isLoadingItem === product.id"> 
                     加到購物車
+                    <span class="spinner-border spinner-border-sm" v-show="isLoadingItem === product.id"></span>
                   </button>
                 </div>
               </td>

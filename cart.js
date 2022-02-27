@@ -10,6 +10,7 @@ const app = Vue.createApp({
       },
       products: [],
       productId: '',
+      isLoadingItem: '',  // 局部讀取效果的變數，當我們點擊加入到購物車按鈕時，按鈕無法再次點擊
     }
   },
   methods: {
@@ -44,11 +45,13 @@ const app = Vue.createApp({
       const data = {
         product_id: id,
         qty,
-      }
+      };
+      this.isLoadingItem = id;
       axios.post(`${url}/api/${path}/cart`, { data }) // 這邊要將資料帶出去
       .then (res => {
         console.log(res);
         this.getCart();
+        this.isLoadingItem = ''; // 讀取完清空
       })
       .catch ((err) => {
         alert(err.data.message);
