@@ -62,7 +62,7 @@
         </table>
         <!-- 購物車列表 -->
         <div class="text-end">
-          <button class="btn btn-outline-danger" type="button">清空購物車</button>
+          <button class="btn btn-outline-danger" type="button" :disabled="cartData.carts?.length === 0">清空購物車</button>
         </div>
         <!---->
         <table class="table align-middle">
@@ -160,7 +160,7 @@
           </div>
           <div class="text-end">
             <button type="submit" class="btn btn-danger"
-                    >送出訂單</button>
+            :disabled="Object.keys(errors).length > 0 || cartData.carts?.length === 0">送出訂單</button>
           </div>
         </v-form>
       </div>
