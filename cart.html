@@ -17,7 +17,7 @@
     <div class="container">
       <div class="mt-4">
         <!-- 產品Modal -->
-        <product-modal ref="productModal" :id="productId"></product-modal>
+        <product-modal ref="productModal" :id="productId" @add-cart="addToCart"></product-modal>
         <!-- 產品Modal -->
         
         <table class="table align-middle">
@@ -94,7 +94,7 @@
                     <div class="input-group mb-3">
                       <!-- <input 
                             min="1" type="number" class="form-control" v-model.number="item.qty"> -->
-                            <select  id="" class="form-select" v-model="item.qty"  :disabled="isLoadingItem === item.id" @click="updateCart(item)">
+                            <select  id="" class="form-select" v-model="item.qty"  :disabled="isLoadingItem === item.id" @change="updateCart(item)">
                               <option :value="num" v-for="num in 50" :key="`${num}-${item.id}`">{{ num }}</option>
                             </select>
                       <span class="input-group-text" id="basic-addon2">{{ item.product.unit }}</span>
@@ -122,7 +122,7 @@
         </table>
       </div>
       <div class="my-5 row justify-content-center">
-        <!-- <v-form ref="form" class="col-md-6" v-slot="{ errors }" >
+        <v-form ref="form" class="col-md-6" v-slot="{ errors }" > 
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <v-field id="email" name="email" type="email" class="form-control"
@@ -160,7 +160,7 @@
             <button type="submit" class="btn btn-danger"
                     >送出訂單</button>
           </div>
-        </v-form> -->
+        </v-form>
       </div>
     </div>
   </div>
@@ -191,8 +191,8 @@
           <div>
             <div class="input-group">
               <input type="number" class="form-control"
-                      min="1">
-              <button type="button" class="btn btn-primary">加入購物車</button>
+                      min="1" v-model="qty">
+              <button type="button" class="btn btn-primary" @click="addToCart">加入購物車</button>
     </div>
     </div>
     </div>

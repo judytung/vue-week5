@@ -30,7 +30,7 @@ const app = Vue.createApp({
     getCart () {
       axios.get(`${url}/api/${path}/cart`)
       .then (res => {
-        // console.log(res);
+        console.log(res);
         this.cartData = res.data.data; // data 裡有兩層，要存到最後一個 data
       })
       .catch ((err) => {
@@ -50,6 +50,7 @@ const app = Vue.createApp({
         console.log(res);
         this.getCart();
         this.isLoadingItem = ''; // 讀取完清空
+        this.$refs.productModal.closeModal();
       })
       .catch ((err) => {
         alert(err.data.message);
@@ -72,7 +73,7 @@ const app = Vue.createApp({
     updateCart (item) {  
       // 根據 api 資料格式建構
       const data = {
-        product_id: item.id,
+        product_id: item.product_id,  
         qty: item.qty,
       };
       this.isLoadingItem = item.id;
@@ -101,6 +102,7 @@ app.component('product-modal', {
     return {
       modal: {}, // 定義 modal 變數方便調用
       product: {},
+      qty: 1,
     }
   },
   // 監控 id 變化
@@ -113,6 +115,9 @@ app.component('product-modal', {
     openModal () {
       this.modal.show();
     },
+    closeModal () {
+      this.modal.hide();
+    },
     getProduct () {
       axios.get(`${url}/api/${path}/product/${this.id}`)
       .then (res => {
@@ -122,6 +127,10 @@ app.component('product-modal', {
       .catch ((err) => {
         alert(err.data.message);
       })
+    },
+    // 因為 modal 的加入購物車是在元件內觸發的，所以這裡也要補上
+    addToCart () {
+      this.$emit('add-cart', this.product.id, this.qty)
     }
   },
   mounted () {
