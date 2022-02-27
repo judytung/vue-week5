@@ -5,9 +5,7 @@ const path = 'judyhexschoolforvue'; // 加入個人 API Path
 const app = Vue.createApp({
   data () {
     return {
-      cartData: {
-
-      },
+      cartData: {},
       products: [],
       productId: '',
       isLoadingItem: '',  // 局部讀取效果的變數，當我們點擊加入到購物車按鈕時，按鈕無法再次點擊
@@ -32,7 +30,7 @@ const app = Vue.createApp({
     getCart () {
       axios.get(`${url}/api/${path}/cart`)
       .then (res => {
-        console.log(res);
+        // console.log(res);
         this.cartData = res.data.data; // data 裡有兩層，要存到最後一個 data
       })
       .catch ((err) => {
@@ -69,8 +67,27 @@ const app = Vue.createApp({
       .catch ((err) => {
         alert(err.data.message);
       })
-    }
+    },
+    // 更新購物車
+    updateCart (item) {  
+      // 根據 api 資料格式建構
+      const data = {
+        product_id: item.id,
+        qty: item.qty,
+      };
+      this.isLoadingItem = item.id;
+      axios.put(`${url}/api/${path}/cart/${item.id}`, { data }) // 這邊要將資料帶出去
+      .then (res => {
+        alert(res.data.message)
+        this.getCart();
+        this.isLoadingItem = ''; // 讀取完清空
+      })
+      .catch ((err) => {
+        alert(err.data.message);
+      })
+    },
   },
+  
   mounted () {
     this.getProducts ();
     this.getCart();
