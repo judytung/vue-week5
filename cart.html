@@ -79,8 +79,7 @@
             <template v-if="cartData.carts">
               <tr v-for="item in cartData.carts" :key="item.id">
                 <td>
-                  <button type="button" class="btn btn-outline-danger btn-sm">
-                    <i class="fas fa-spinner fa-pulse"></i>
+                  <button type="button" class="btn btn-outline-danger btn-sm" @click="removeCartItem(item.id)">
                     x
                   </button>
                 </td>

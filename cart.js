@@ -57,6 +57,19 @@ const app = Vue.createApp({
         alert(err.data.message);
       })
     },
+    // 刪除購物車品項
+    removeCartItem (id) {
+      this.isLoadingItem = id;
+      axios.delete(`${url}/api/${path}/cart/${id}`)
+      .then (res => {
+        alert(res.data.message);
+        this.getCart();
+        this.isLoadingItem = '';
+      })
+      .catch ((err) => {
+        alert(err.data.message);
+      })
+    }
   },
   mounted () {
     this.getProducts ();
