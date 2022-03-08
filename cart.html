@@ -150,7 +150,7 @@
 
           <div class="mb-3">
             <label for="address" class="form-label">收件人地址</label>
-            <v-field id="address" name="地址" type="text" class="form-control" :class="{ 'is-invalid': errors['地址'] }" v-model="user.address"
+            <v-field id="address" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['地址'] }" v-model="user.address"
                       placeholder="請輸入地址" rules="required" ></v-field>
             <error-message name="地址" class="invalid-feedback"></error-message>
           </div>

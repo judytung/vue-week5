@@ -47,7 +47,7 @@ const app = Vue.createApp({
     },
     openProductModal (id) {
       this.productId = id; // 這裏的 id 對應到 html product-modal 元件裡的 :id = "productId" ，productId 是外層資料定義的
-      this.$refs.productModal.openModal(); // 取得 productModal 這個元件結點後使用它裡面的 openModal
+      // this.$refs.productModal.openModal(); // 取得 productModal 這個元件結點後使用它裡面的 openModal
     },
     // 取得購物車列表
     getCart () {
@@ -161,8 +161,8 @@ app.component('product-modal', {
     getProduct () {
       axios.get(`${url}/api/${path}/product/${this.id}`)
       .then (res => {
-        console.log(res);
         this.product = res.data.product;
+        this.openModal();
       })
       .catch ((err) => {
         alert(err.data.message);
