@@ -62,7 +62,7 @@
         </table>
         <!-- 購物車列表 -->
         <div class="text-end">
-          <button class="btn btn-outline-danger" type="button" :disabled="cartData.carts?.length === 0">清空購物車</button>
+          <button class="btn btn-outline-danger" type="button" :disabled="cartData.carts?.length === 0" @click="delCart">清空購物車</button>
         </div>
         <!---->
         <table class="table align-middle">
@@ -193,8 +193,11 @@
           <div class="h5">現在只要 {{ product.price }} 元</div>
           <div>
             <div class="input-group">
-              <input type="number" class="form-control"
-                      min="1" v-model="qty">
+              <!-- <input type="number" class="form-control"
+                      min="1" v-model="qty"> -->
+              <select name="" id="" class="form-select" v-model="qty">
+                <option :value="num" v-for="num in 50" :key="`${num}-${id}`">{{ num }}</option>
+              </select>
               <button type="button" class="btn btn-primary" @click="addToCart">加入購物車</button>
     </div>
     </div>

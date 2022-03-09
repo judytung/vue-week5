@@ -109,10 +109,22 @@ const app = Vue.createApp({
         alert(err.data.message);
       })
     },
+    // 清空購物車
+    delCart () {
+      axios.delete(`${url}/api/${path}/carts`)
+      .then (res => {
+        alert(res.data.message)
+        this.getCart();
+      })
+      .catch(err => {
+        alert(err.data.message);
+      })
+    },
     // 表單
     onSubmit() {
       // console.log(this.user);
      this.$refs.form.resetForm();
+     this.user.textarea = '';
      this.cartData.carts = '';
      this.cartData.total = '';
     },
@@ -149,7 +161,7 @@ app.component('product-modal', {
   watch: {
     id () {
       this.getProduct();
-    }
+    },
   },
   methods :{
     openModal () {
@@ -162,6 +174,7 @@ app.component('product-modal', {
       axios.get(`${url}/api/${path}/product/${this.id}`)
       .then (res => {
         this.product = res.data.product;
+        this.qty = 1;
         this.openModal();
       })
       .catch ((err) => {
