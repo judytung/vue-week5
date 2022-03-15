@@ -66,10 +66,18 @@ const app = Vue.createApp({
         product_id: id,
         qty,
       };
+      const productNow = this.cartData.carts.filter( p => {
+        return p.product_id === id
+      }) 
+      if (productNow.length > 0 && productNow[0].qty > 49) {
+        this.$refs.productModal.closeModal()
+        alert('已達到最高購買數量')
+        return 
+      }
       this.isLoadingItem = id;
+    
       axios.post(`${url}/api/${path}/cart`, { data }) // 這邊要將資料帶出去
-      .then (res => {
-        console.log(res);
+      .then (() => {
         this.getCart();
         this.isLoadingItem = ''; // 讀取完清空
         this.$refs.productModal.closeModal();
