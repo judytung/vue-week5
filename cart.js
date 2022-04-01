@@ -47,6 +47,9 @@ const app = Vue.createApp({
     },
     openProductModal (id) {
       this.productId = id; // 這裏的 id 對應到 html product-modal 元件裡的 :id = "productId" ，productId 是外層資料定義的
+      if (this.productId === id) {
+        this.$refs.productModal.openModal()
+      }
       // this.$refs.productModal.openModal(); // 取得 productModal 這個元件結點後使用它裡面的 openModal
     },
     // 取得購物車列表
@@ -68,8 +71,8 @@ const app = Vue.createApp({
       };
       const productNow = this.cartData.carts.filter( p => {
         return p.product_id === id
-      }) 
-      if (productNow.length > 0 && productNow[0].qty > 49) {
+      })
+      if (productNow.length > 0 &&  productNow[0].qty + data.qty > 50) {
         this.$refs.productModal.closeModal()
         alert('已達到最高購買數量')
         return 
